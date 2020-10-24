@@ -4,3 +4,5 @@ LISTE DES CHOSES A FAIRE :
 
 - Se d√©barasser de la station 301
 - Fusionner le mod√®le de croissance du Marsupilami et le mod√®le NPZ
+
+- Gestion des tempÈratures observÈes
