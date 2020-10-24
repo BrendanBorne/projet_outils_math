@@ -1,5 +1,5 @@
 #COMMENTAIRE POUR VOIR SI CA MARCHE
-#BRANCHE
+#BRANCHE 
 
 close all;
 clear all;
@@ -8,6 +8,7 @@ global cT
 global Kref
 global Linf
 global f
+global AmpT
 
 
 %VARIABLES POUR K
@@ -36,7 +37,7 @@ temp = [temperature];
 
 %CALCUL
 for t = dt:dt:t_sim                                          
-  temperature = Tmoy + 0.5*AmpT*cos((2*pi*t)/365);
+  temperature = Fonction_var_temp(Tmoy); 
   cT = exp(Ta/Tref - Ta/temperature); 
   N = metynnis(t*2, 2);
   f = N/(Xk + N);                                          %réponse fonctionnelle
