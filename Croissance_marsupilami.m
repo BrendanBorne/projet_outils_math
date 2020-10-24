@@ -1,4 +1,5 @@
 #COMMENTAIRE POUR VOIR SI CA MARCHE
+#BRANCHE 
 
 close all;
 clear all;
@@ -7,6 +8,9 @@ global cT
 global Kref
 global Linf
 global f
+global AmpT
+global Ta
+global Tref
 
 
 %VARIABLES POUR K
@@ -35,8 +39,7 @@ temp = [temperature];
 
 %CALCUL
 for t = dt:dt:t_sim                                          
-  temperature = Tmoy + 0.5*AmpT*cos((2*pi*t)/365);
-  cT = exp(Ta/Tref - Ta/temperature); 
+  [temperature, cT] = Fonction_var_temp(Tmoy, t);  
   N = metynnis(t*2, 2);
   f = N/(Xk + N);                                          %réponse fonctionnelle
   K1 = Fonction_var_taille(L);
