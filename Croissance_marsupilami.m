@@ -1,5 +1,4 @@
 #COMMENTAIRE POUR VOIR SI CA MARCHE
-#BRANCHE 
 
 close all;
 clear all;
