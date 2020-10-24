@@ -1,5 +1,3 @@
-%MODELE NPZ
-
 close all;
 clear all;
 
@@ -14,22 +12,22 @@ global e
 global gamma
 global fIo
 
-Vm = 1;        %en jour^-1, taux max d'assimilation d'azote par le phyton
-ks = 1;        %en micromole, cstte de demi-saturation de l'azote par le phyton
-Rm = 1;        %en jour^-1, taux max de broutage du phyton par les métynnis
-g = 0.2;       %en jour^-1, taux de mortalité des métynnis
-lambda = 0.2;  %en micromol d'azote par L, cstte d'Ivlev pour le broutage
-e = 0.1;       %en jour^-1, taux de mortalité du phyton
-gamma = 0.7;   %proportion d'azote assimilé par les métynnis
-fIo = 0.25;    %fonction de l'intensité de la lumière 
+Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
+ks = 1;                                         %en micromole, cstte de demi-saturation de l'azote par le phyton
+Rm = 1;                                         %en jour^-1, taux max de broutage du phyton par les métynnis
+g = 0.2;                                        %en jour^-1, taux de mortalité des metynnis
+lambda = 0.2;                                   %en micromol d'azote par L, cstte d'Ivlev pour le broutage
+e = 0.1;                                        %en jour^-1, taux de mortalité du phyton
+gamma = 0.7;                                    %proportion d'azote assimile par les metynnis
+fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
 
-Tmax = 365*9;    %temps maximal de la simulation
-dt = 0.5;        %pas de temps
-Time = [0];    %tableau qui stocke le temps
+Tmax = 365*9;                                   %temps maximal de la simulation
+dt = 0.5;                                       %pas de temps
+Time = [0];                                     %tableau qui stocke le temps
 
-N = 4;        %effectifs initiaux nutriments
-P = 2.5;      %effectifs initiaux phyton
-Z = 0.5;      %effectifs initiaux métynnis
+N = 4;                                          %effectifs initiaux nutriments
+P = 2.5;                                        %effectifs initiaux phyton
+Z = 0.5;                                        %effectifs initiaux metynnis
 
 Effectifs_mety = [Z];
 Effectifs_nutriment = [N];
@@ -37,7 +35,7 @@ Effectifs_phyton = [P];
 
 %CALCUL (RUNGE KUTTA)
 
-for t = 0:dt:Tmax
+for t = dt:dt:Tmax
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
   [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
   [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
@@ -94,34 +92,36 @@ Ta = 9500;                                   %température d'Arhenius
 Linf = 150;                                  %cm
 L = 7;                                       %longueur initiale                              %on regarde chaque jour pendant 10 ans
 Xk = 0.14;                                   %valeur de demi saturation, en micromoles d'azote par litre
-x = 0;
+x = 0;                                       %permet de r‚cup‚rer les valeurs dans le tableau des m‚tynnis
 
 
 %TABLEAUX
-Lt = [L];                                    %vecteur qui stocke les longueurs
-tt = [0];                                    %stockage du temps
+Lt = [L];                                    %vecteur qui stocke les longueurs                             
 temp = [temperature];
 
 
 
 
 %CALCUL
-for t = 1:dt:Tmax 
+for t = dt:dt:Tmax 
   x = x+1;                                        
   [temperature, cT] = Fonction_var_temp(Tmoy, t);  
   N = Effectifs_mety(1,x);
-  f = N/(Xk + N);                                          %réponse fonctionnelle
+  f = N/(Xk + N);                                          %reponse fonctionnelle
   K1 = Fonction_var_taille(L);
   K2 = Fonction_var_taille(L + 0.5*dt*K1);
   K3 = Fonction_var_taille(L + 0.5*dt*K2);
   K4 = Fonction_var_taille(L + dt*K3);
   L = L + dt*(K1/6 + K2/3 + K3/3 + K4/6);
   Lt = [Lt L];
-  tt = [tt t];
   temp = [temp temperature];
 endfor
 
 
 %REPRESENTATION
 figure(2);
-plot(tt, Lt, 'r');
+plot(Time, Lt, 'k');
+title('Croissance du Marsupilami');
+xlabel('Temps en jours');
+ylabel('Taille en cm');
+
