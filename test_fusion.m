@@ -23,8 +23,8 @@ e = 0.1;       %en jour^-1, taux de mortalité du phyton
 gamma = 0.7;   %proportion d'azote assimilé par les métynnis
 fIo = 0.25;    %fonction de l'intensité de la lumière 
 
-Tmax = 365;    %temps maximal de la simulation
-dt = 0.1;        %pas de temps
+Tmax = 365*9;    %temps maximal de la simulation
+dt = 0.5;        %pas de temps
 Time = [0];    %tableau qui stocke le temps
 
 N = 4;        %effectifs initiaux nutriments
@@ -92,10 +92,9 @@ Ta = 9500;                                   %température d'Arhenius
 
 %AUTRES VARIABLES
 Linf = 150;                                  %cm
-L = 7;                                       %longueur initiale
-dt = 0.1;  
-t_sim = 365*9;                               %on regarde chaque jour pendant 10 ans
+L = 7;                                       %longueur initiale                              %on regarde chaque jour pendant 10 ans
 Xk = 0.14;                                   %valeur de demi saturation, en micromoles d'azote par litre
+x = 0;
 
 
 %TABLEAUX
@@ -104,10 +103,13 @@ tt = [0];                                    %stockage du temps
 temp = [temperature];
 
 
+
+
 %CALCUL
-for t = dt:dt:t_sim                                          
+for t = 1:dt:Tmax 
+  x = x+1;                                        
   [temperature, cT] = Fonction_var_temp(Tmoy, t);  
-  N = Effectifs_mety(1,t*10);
+  N = Effectifs_mety(1,x);
   f = N/(Xk + N);                                          %réponse fonctionnelle
   K1 = Fonction_var_taille(L);
   K2 = Fonction_var_taille(L + 0.5*dt*K1);
