@@ -3,6 +3,7 @@ clear all;
 
 %VARIABLES
 
+%globales NPZ
 global Vm
 global ks
 global Rm
@@ -11,6 +12,15 @@ global lambda
 global e
 global gamma
 global fIo
+
+%globales croissance
+global cT
+global Kref
+global Linf
+global f
+global AmpT
+global Ta
+global Tref
 
 Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
 ks = 1;                                         %en micromole, cstte de demi-saturation de l'azote par le phyton
@@ -66,17 +76,6 @@ title('Evolution des effectifs de métynnis, nutriments et phyton en fonction du 
 
 "___________________________________________________________________________________________________________"
 
-
-
-
-
-global cT
-global Kref
-global Linf
-global f
-global AmpT
-global Ta
-global Tref
 
 
 %VARIABLES POUR K
