@@ -116,7 +116,12 @@ plot(Time, Lt);
 title('Croissance du Marsupilami');
 xlabel('Temps en jours');
 ylabel('Taille en cm');
+grid;
 
+#Variations de température
 figure(3);
 plot(Time, temp);
-
+title('Variations de la temperature');
+xlabel('Temps en jours');
+ylabel('Temperature en Kelvin');
+grid;
