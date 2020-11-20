@@ -29,6 +29,7 @@ figure(1);
 hold on;
 plot(t,tab);
 plot(tsim,temp);
+title("Evolution de la température aux alentours de l'étang de XFC.678.F9");
 xlabel("Jours");
 ylabel("Temperature");
 legend("Valeurs réelles","Simulation");
