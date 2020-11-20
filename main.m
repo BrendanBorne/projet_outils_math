@@ -1,9 +1,11 @@
 close all;
 clear all;
 
-%VARIABLES
+### SIMULATION DE L'ETANG
 
-%globales NPZ
+#VARIABLES
+
+#globales NPZ
 global Vm
 global ks
 global Rm
@@ -13,7 +15,7 @@ global e
 global gamma
 global fIo
 
-%globales croissance
+#globales croissance
 global cT
 global Kref
 global Linf
@@ -43,7 +45,7 @@ Effectifs_mety = [Z];
 Effectifs_nutriment = [N];
 Effectifs_phyton = [P];
 
-%CALCUL (RUNGE KUTTA)
+#CALCUL (RUNGE KUTTA)
 
 for t = dt:dt:Tmax
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
@@ -62,7 +64,7 @@ for t = dt:dt:Tmax
 endfor
 
 
-%REPRESENTATION GRAPHIQUE
+#REPRESENTATION GRAPHIQUE
 
 figure(1);
 hold on;
@@ -77,8 +79,9 @@ title('Evolution des effectifs de métynnis, nutriments et phyton en fonction du 
 "___________________________________________________________________________________________________________"
 
 
+### SIMULATION DE LA CROISSANCE DU MARSUPILAMI
 
-%VARIABLES POUR K
+#VARIABLES POUR K
 Tmoy = 273+29;                               %température moyenne notée en kelvin
 temperature = Tmoy;
 AmpT = 16;                                   %amplitude thermique
@@ -87,21 +90,21 @@ Kref = 0.031/30;                             %on divise par 30 pour passer de mo
 Ta = 9500;                                   %température d'Arhenius
 
 
-%AUTRES VARIABLES
+#AUTRES VARIABLES
 Linf = 150;                                  %cm
 L = 7;                                       %longueur initiale                              %on regarde chaque jour pendant 10 ans
 Xk = 0.14;                                   %valeur de demi saturation, en micromoles d'azote par litre
 x = 0;                                       %permet de r‚cup‚rer les valeurs dans le tableau des m‚tynnis
 
 
-%TABLEAUX
+#TABLEAUX
 Lt = [L];                                    %vecteur qui stocke les longueurs                             
 temp = [temperature];
 
 
 
 
-%CALCUL
+#CALCUL
 for t = dt:dt:Tmax 
   x = x+1;                                        
   [temperature, cT] = Fonction_var_temp(Tmoy, t);  
@@ -117,9 +120,9 @@ for t = dt:dt:Tmax
 endfor
 
 
-%REPRESENTATION
+#REPRESENTATION
 figure(2);
-plot(Time, Lt, 'k');
+plot(Time, Lt);
 title('Croissance du Marsupilami');
 xlabel('Temps en jours');
 ylabel('Taille en cm');
