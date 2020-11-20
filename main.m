@@ -96,7 +96,6 @@ Xk = 0.14;                                   %valeur de demi saturation, en micr
 Lt = [L];                                    %vecteur qui stocke les longueurs                             
 temp = [temperature];
 
-
 #CALCUL
 for t = dt:dt:Tmax                                        
   [temperature, cT] = Fonction_var_temp(Tmoy, t);  
@@ -109,7 +108,6 @@ for t = dt:dt:Tmax
   Lt = [Lt L];
   temp = [temp temperature];
 endfor
-
 
 #REPRESENTATION
 figure(2);
