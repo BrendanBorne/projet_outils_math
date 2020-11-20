@@ -63,7 +63,6 @@ for t = dt:dt:Tmax
   Time = [Time t];
 endfor
 
-
 #REPRESENTATION GRAPHIQUE
 
 figure(1);
@@ -74,10 +73,7 @@ plot(Time, Effectifs_phyton, 'g');
 legend('Métynnis', 'Nutriments', 'Phyton');
 title('Evolution des effectifs de métynnis, nutriments et phyton en fonction du temps');
 
-
-
-"___________________________________________________________________________________________________________"
-
+#___________________________________________________________________________________________________________
 
 ### SIMULATION DE LA CROISSANCE DU MARSUPILAMI
 
@@ -92,9 +88,8 @@ Ta = 9500;                                   %température d'Arhenius
 
 #AUTRES VARIABLES
 Linf = 150;                                  %cm
-L = 7;                                       %longueur initiale                              %on regarde chaque jour pendant 10 ans
+L = 7;                                       %longueur initiale                             
 Xk = 0.14;                                   %valeur de demi saturation, en micromoles d'azote par litre
-x = 0;                                       %permet de r‚cup‚rer les valeurs dans le tableau des m‚tynnis
 
 
 #TABLEAUX
@@ -102,13 +97,9 @@ Lt = [L];                                    %vecteur qui stocke les longueurs
 temp = [temperature];
 
 
-
-
 #CALCUL
-for t = dt:dt:Tmax 
-  x = x+1;                                        
+for t = dt:dt:Tmax                                        
   [temperature, cT] = Fonction_var_temp(Tmoy, t);  
-  N = Effectifs_mety(1,x);
   f = N/(Xk + N);                                          %reponse fonctionnelle
   K1 = Fonction_var_taille(L);
   K2 = Fonction_var_taille(L + 0.5*dt*K1);
