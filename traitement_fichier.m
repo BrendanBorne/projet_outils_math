@@ -6,8 +6,8 @@ temp=load("Temp2011.txt");
 tab=[temp(:,2)];
 
 #Traitement des données
-tMoy=mean(tab);
-amp=max(tab)-min(tab);
+tMoy=mean(tab)+273;
+amp=max(tab)-min(tab)+273;
 
 #Tableau t pour les données importées
 t=[];

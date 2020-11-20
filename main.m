@@ -33,6 +33,7 @@ e = 0.1;                                        %en jour^-1, taux de mortalité d
 gamma = 0.7;                                    %proportion d'azote assimile par les metynnis
 fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
 
+
 Tmax = 365*9;                                   %temps maximal de la simulation
 dt = 0.5;                                       %pas de temps
 Time = [0];                                     %tableau qui stocke le temps
@@ -78,9 +79,9 @@ title('Evolution des effectifs de métynnis, nutriments et phyton en fonction du 
 ### SIMULATION DE LA CROISSANCE DU MARSUPILAMI
 
 #VARIABLES POUR K
-Tmoy = 273+29;                               %température moyenne notée en kelvin
+Tmoy = 273+31.995;                           %température moyenne notée en kelvin
 temperature = Tmoy;
-AmpT = 16;                                   %amplitude thermique
+AmpT = 10.366;                               %amplitude thermique
 Tref = 310;
 Kref = 0.031/30;                             %on divise par 30 pour passer de mois en jours
 Ta = 9500;                                   %température d'Arhenius
@@ -115,4 +116,7 @@ plot(Time, Lt);
 title('Croissance du Marsupilami');
 xlabel('Temps en jours');
 ylabel('Taille en cm');
+
+figure(3);
+plot(Time, temp);
 
