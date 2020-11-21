@@ -1,22 +1,22 @@
 clear all;
 close all;
 
-#Importation des données
+#Importation des donnees
 temp=load("Temp2011.txt");
 tab=[temp(:,2)];
 
-#Traitement des données
-tMoy=mean(tab)+273;
-amp=max(tab)-min(tab)+273;
+#Traitement des donnees
+tMoy=mean(tab);
+amp=max(tab)-min(tab);
 
-#Tableau t pour les données importées
+#Tableau t pour les donnees importees
 t=[];
 temp=[];
 for i=1:2:365
   t=[t;i]; 
 endfor
 
-#Simulation de la température
+#Simulation de la temperature
 tsim=[];
 for i=1:365
   tsim=[tsim;i];
@@ -24,15 +24,15 @@ for i=1:365
   temp=[temp;calcul];
 endfor
 
-#Aperçu des données
+#Apercu des donnees
 figure(1);
 hold on;
 plot(t,tab);
 plot(tsim,temp);
-title("Evolution de la température aux alentours de l'étang de XFC.678.F9");
+title("Evolution de la température aux alentours de l'etang de XFC.678.F9");
 xlabel("Jours");
 ylabel("Temperature");
-legend("Valeurs réelles","Simulation");
+legend("Valeurs reelles","Simulation");
 plot(t,tMoy, 'k');
 text(370, tMoy, "Moyenne");
 grid;
