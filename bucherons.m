@@ -22,11 +22,7 @@ K=0.5;
 #Calcul
 for i=t:1:30
   n=nmax*(1-exp(-K*(i-0)));
-  if(n==nmax)
-    res=[res;1];
-  elseif
-    res=[res;n];
-  endif
+  res=[res;n];
   t=t+dt;
   t_tab=[t_tab;t];
 endfor
