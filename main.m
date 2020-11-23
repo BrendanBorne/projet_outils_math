@@ -92,6 +92,7 @@ Linf = 150;                                  %cm
 L = 7;                                       %longueur initiale                             
 Xk = 0.14;                                   %valeur de demi saturation, en micromoles d'azote par litre
 x = 0;                                       %permet de r?cup?rer les valeurs dans le tableau des m?tynnis
+Met = 0;                                     %variable qui stockera les effectifs de metynnis pour chaque pas de temps
 
 #TABLEAUX
 Lt = [L];                                    %vecteur qui stocke les longueurs                             
@@ -99,10 +100,10 @@ temp = [temperature];
 
 #CALCUL
 for t = dt:dt:Tmax
-  x = x+1;                                        
+  x = x+1;                                          %permet juste de parcourir le tableau                                      
   [temperature, cT] = Fonction_var_temp(Tmoy, t); 
-  N = Effectifs_mety(1,x); 
-  f = N/(Xk + N);                                          %reponse fonctionnelle
+  Met = Effectifs_mety(1,x); 
+  f = Met/(Xk + Met);                                          %reponse fonctionnelle
   K1 = Fonction_var_taille(L);
   K2 = Fonction_var_taille(L + 0.5*dt*K1);
   K3 = Fonction_var_taille(L + 0.5*dt*K2);
