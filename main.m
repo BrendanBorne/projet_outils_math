@@ -24,6 +24,11 @@ global AmpT
 global Ta
 global Tref
 
+TAB_bucherons = load('Bucherons.txt');          %tableau des bucherons
+global bucherons = TAB_bucherons(1,2);          %nombre de bucherons
+dur‚e_bucherons = length(Tab_bucherons);
+
+
 Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
 ks = 1;                                         %en micromole, cstte de demi-saturation de l'azote par le phyton
 Rm = 1;                                         %en jour^-1, taux max de broutage du phyton par les métynnis
@@ -48,6 +53,20 @@ Effectifs_phyton = [P];
 #CALCUL (RUNGE KUTTA)
 
 for t = dt:dt:Tmax
+  
+  %CALCULER ICI LE NOMBRE DE BUCHERONS
+##  for tbuch in TAB_bucherons(:,1)
+##    if (t/dt) == tbuch
+##      bucherons = TAB_bucherons(tbuch, 2);
+  
+  
+  
+  
+  
+  
+  
+  
+  
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
   [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
   [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
