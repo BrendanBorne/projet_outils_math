@@ -26,7 +26,8 @@ global Tref
 
 TAB_bucherons = load('Bucherons.txt');          %tableau des bucherons
 global bucherons = TAB_bucherons(1,2);          %nombre de bucherons
-dur‚e_bucherons = length(Tab_bucherons);
+duree_bucherons = length(TAB_bucherons);
+a = 1;
 
 
 Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
@@ -55,9 +56,15 @@ Effectifs_phyton = [P];
 for t = dt:dt:Tmax
   
   %CALCULER ICI LE NOMBRE DE BUCHERONS
-##  for tbuch in TAB_bucherons(:,1)
+  
+##  for tbuch = TAB_bucherons(a,1)
+##    a = a+1;
 ##    if (t/dt) == tbuch
 ##      bucherons = TAB_bucherons(tbuch, 2);
+##    endif
+##    
+##  endfor
+  
   
   
   
