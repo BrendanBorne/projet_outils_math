@@ -1,0 +1,2 @@
+Evolution par paliers du nombre de bucherons car :
+- les bucherons ne peuvent entrer et sortir du camp qu'une fois par semaine, sur un jour prédéfini
