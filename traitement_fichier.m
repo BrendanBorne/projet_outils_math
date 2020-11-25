@@ -32,7 +32,7 @@ plot(tsim,temp);
 title("Evolution de la température aux alentours de l'etang de XFC.678.F9");
 xlabel("Jours");
 ylabel("Temperature");
-legend("Valeurs reelles","Simulation");
+legend("Valeurs reelles","Modèle");
 plot(t,tMoy, 'k');
 text(370, tMoy, "Moyenne");
 grid;
