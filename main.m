@@ -28,6 +28,7 @@ TAB_bucherons = load('Bucherons.txt');          %tableau des bucherons
 global bucherons = TAB_bucherons(1,2);          %nombre de bucherons
 duree_bucherons = length(TAB_bucherons);
 a = 1;
+debut_bucherons = input("Jour d'arrivee des premiers bucherons ? ");
 
 
 Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
@@ -59,7 +60,7 @@ for t = dt:dt:Tmax
   
 ##  for tbuch = TAB_bucherons(a,1)
 ##    a = a+1;
-##    if (t/dt) == tbuch
+##    if (t/dt) == tbuch + debut_bucherons
 ##      bucherons = TAB_bucherons(tbuch, 2);
 ##    endif
 ##    
