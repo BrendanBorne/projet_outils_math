@@ -59,15 +59,15 @@ for t = dt:dt:Tmax
   %CALCULER ICI LE NOMBRE DE BUCHERONS
   
 ##  for tbuch = TAB_bucherons(a,1)
+##   
+##    
+##    
 ##    a = a+1;
 ##    if (t/dt) == tbuch + debut_bucherons
 ##      bucherons = TAB_bucherons(tbuch, 2);
 ##    endif
 ##    
 ##  endfor
-  
-  
-  
   
   
   
