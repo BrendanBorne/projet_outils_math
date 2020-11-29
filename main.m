@@ -25,7 +25,7 @@ global Ta
 global Tref
 
 TAB_bucherons = load('Bucherons.txt');          %tableau des bucherons
-global bucherons = TAB_bucherons(1,2);          %nombre de bucherons
+global bucherons %= TAB_bucherons(1,2);          %nombre de bucherons
 duree_bucherons = length(TAB_bucherons);
 a = 1;
 debut_bucherons = input("Jour d'arrivee des premiers bucherons ? ");
@@ -54,41 +54,36 @@ Effectifs_phyton = [P];
 
 #CALCUL (RUNGE KUTTA)
 
-for t = dt:dt:Tmax
-  
-  %CALCULER ICI LE NOMBRE DE BUCHERONS
-  
-##  for tbuch = TAB_bucherons(a,1)
-##   
-##    
-##    
-##    a = a+1;
-##    if (t/dt) == tbuch + debut_bucherons
-##      bucherons = TAB_bucherons(tbuch, 2);
-##    endif
-##    
-##  endfor
-  
-  
-  
-  
-  
-  
-  
-  [NK1, PK1, ZK1] = NPZ(N, P, Z);
-  [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
-  [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
-  [NK4, PK4, ZK4] = NPZ(N + NK3*dt, P + PK3*dt, Z + ZK3*dt);
-  
-  N = N + dt*(NK1/6 + NK2/3 + NK3/3 + NK4/6);
-  P = P + dt*(PK1/6 + PK2/3 + PK3/3 + PK4/6);
-  Z = Z + dt*(ZK1/6 + ZK2/3 + ZK3/3 + ZK4/6);
- 
-  Effectifs_mety = [Effectifs_mety Z];
-  Effectifs_nutriment = [Effectifs_nutriment N];
-  Effectifs_phyton = [Effectifs_phyton P];
-  Time = [Time t];
-endfor
+  for t = dt:dt:Tmax
+    
+    %CALCULER ICI LE NOMBRE DE BUCHERONS
+    
+    for tbuch = TAB_bucherons(a,1)
+     
+      
+      
+      a = a+1;
+      if (t*dt) == tbuch + debut_bucherons
+        bucherons = TAB_bucherons(tbuch, 2)
+      endif
+    
+    
+    
+    [NK1, PK1, ZK1] = NPZ(N, P, Z);
+    [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
+    [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
+    [NK4, PK4, ZK4] = NPZ(N + NK3*dt, P + PK3*dt, Z + ZK3*dt);
+    
+    N = N + dt*(NK1/6 + NK2/3 + NK3/3 + NK4/6);
+    P = P + dt*(PK1/6 + PK2/3 + PK3/3 + PK4/6);
+    Z = Z + dt*(ZK1/6 + ZK2/3 + ZK3/3 + ZK4/6);
+   
+    Effectifs_mety = [Effectifs_mety Z];
+    Effectifs_nutriment = [Effectifs_nutriment N];
+    Effectifs_phyton = [Effectifs_phyton P];
+    Time = [Time t];
+    endfor
+  endfor
 
 #REPRESENTATION GRAPHIQUE
 
