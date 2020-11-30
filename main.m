@@ -59,9 +59,9 @@ for t = dt:dt:Tmax
   %CALCULER ICI LE NOMBRE DE BUCHERONS
  
   
-      if (any(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1
+      if any(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1
         
-        ligne = find(TAB_bucherons(:,1)== y)
+      
         
         bucherons = TAB_bucherons(find(TAB_bucherons(:,1)==t*dt), 2);
         
