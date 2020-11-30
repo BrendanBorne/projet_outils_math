@@ -54,32 +54,34 @@ Effectifs_phyton = [P];
 
 #CALCUL (RUNGE KUTTA)
 
-  for t = dt:dt:Tmax
+for t = dt:dt:Tmax
+  
+  %CALCULER ICI LE NOMBRE DE BUCHERONS
+ 
+  
+      if (any(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1
+        
+        ligne = find(TAB_bucherons(:,1)== y)
+        
+        bucherons = TAB_bucherons(find(TAB_bucherons(:,1)==t*dt), 2);
+        
+      endif
     
-    %CALCULER ICI LE NOMBRE DE BUCHERONS
-   
-    
-        if (any(TAB_bucherons(:,1)==t*dt) == 1
-          
-          bucherons = TAB_bucherons(find(TAB_bucherons(:,1)==t*dt) , 2);
-          
-          endif
-      
-    [NK1, PK1, ZK1] = NPZ(N, P, Z);
-    [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
-    [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
-    [NK4, PK4, ZK4] = NPZ(N + NK3*dt, P + PK3*dt, Z + ZK3*dt);
-    
-    N = N + dt*(NK1/6 + NK2/3 + NK3/3 + NK4/6);
-    P = P + dt*(PK1/6 + PK2/3 + PK3/3 + PK4/6);
-    Z = Z + dt*(ZK1/6 + ZK2/3 + ZK3/3 + ZK4/6);
-   
-    Effectifs_mety = [Effectifs_mety Z];
-    Effectifs_nutriment = [Effectifs_nutriment N];
-    Effectifs_phyton = [Effectifs_phyton P];
-    Time = [Time t];
-    
-  endfor
+  [NK1, PK1, ZK1] = NPZ(N, P, Z);
+  [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
+  [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
+  [NK4, PK4, ZK4] = NPZ(N + NK3*dt, P + PK3*dt, Z + ZK3*dt);
+  
+  N = N + dt*(NK1/6 + NK2/3 + NK3/3 + NK4/6);
+  P = P + dt*(PK1/6 + PK2/3 + PK3/3 + PK4/6);
+  Z = Z + dt*(ZK1/6 + ZK2/3 + ZK3/3 + ZK4/6);
+ 
+  Effectifs_mety = [Effectifs_mety Z];
+  Effectifs_nutriment = [Effectifs_nutriment N];
+  Effectifs_phyton = [Effectifs_phyton P];
+  Time = [Time t];
+  
+endfor
 
 #REPRESENTATION GRAPHIQUE
 
