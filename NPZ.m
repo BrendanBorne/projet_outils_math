@@ -8,7 +8,6 @@ global e
 global gamma
 global fIo
 
-global dt  %pas de temps, pour les apports habdomadaires des bucherons
 global bucherons
 
 
