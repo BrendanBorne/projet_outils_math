@@ -56,8 +56,10 @@ Effectifs_phyton = [P];
 
 for t = dt:dt:Tmax
 
-  if any(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1  
-    bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt), 2);   
+  if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
+    bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2);  
+   else floor(t) == TAB_bucherons(length(TAB_bucherons),1) + 1
+    bucherons = 0;
   endif
     
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
@@ -74,7 +76,6 @@ for t = dt:dt:Tmax
   Effectifs_phyton = [Effectifs_phyton P];
   Time = [Time t];
   
-  bucherons = 0;
   
 endfor
 
