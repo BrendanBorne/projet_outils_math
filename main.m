@@ -24,18 +24,25 @@ global AmpT
 global Ta
 global Tref
 
+TAB_bucherons = load('Bucherons.txt');          %tableau des bucherons
+global bucherons = 0;          %nombre de bucherons
+debut_bucherons = input("Jour d'arrivee des premiers bucherons ? ");
+%jours_bucherons = TAB_bucherons(:,1);   pas forcÂ‚ment utile
+ligne = 0;  %pas forcÂ‚ment utile non plus
+
+
 Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
 ks = 1;                                         %en micromole, cstte de demi-saturation de l'azote par le phyton
-Rm = 1;                                         %en jour^-1, taux max de broutage du phyton par les métynnis
-g = 0.2;                                        %en jour^-1, taux de mortalité des metynnis
+Rm = 1;                                         %en jour^-1, taux max de broutage du phyton par les mÃ©tynnis
+g = 0.2;                                        %en jour^-1, taux de mortalitÃ© des metynnis
 lambda = 0.2;                                   %en micromol d'azote par L, cstte d'Ivlev pour le broutage
-e = 0.1;                                        %en jour^-1, taux de mortalité du phyton
+e = 0.1;                                        %en jour^-1, taux de mortalitÃ© du phyton
 gamma = 0.7;                                    %proportion d'azote assimile par les metynnis
 fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
 
 
 Tmax = 365*9;                                   %temps maximal de la simulation
-dt = 0.5;                                       %pas de temps
+global dt = 0.5;                                       %pas de temps
 Time = [0];                                     %tableau qui stocke le temps
 
 N = 4;                                          %effectifs initiaux nutriments
@@ -46,11 +53,14 @@ Effectifs_mety = [Z];
 Effectifs_nutriment = [N];
 Effectifs_phyton = [P];
 
-#CALCUL (RUNGE KUTTA)
+# CALCUL DES CONCENTRATIONS DANS L'ETANG(RUNGE KUTTA)
 
 for t = dt:dt:Tmax
-<<<<<<< Updated upstream
-=======
+
+  if any(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1  
+    bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt), 2);   
+  endif
+    
   
   %CALCULER ICI LE NOMBRE DE BUCHERONS
  
@@ -60,8 +70,6 @@ for t = dt:dt:Tmax
         disp(bucherons);  
       endif
     
-    
->>>>>>> Stashed changes
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
   [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
   [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
@@ -75,11 +83,12 @@ for t = dt:dt:Tmax
   Effectifs_nutriment = [Effectifs_nutriment N];
   Effectifs_phyton = [Effectifs_phyton P];
   Time = [Time t];
-<<<<<<< Updated upstream
-=======
+
+  
+  bucherons = 0;
+
   %disp(bucherons);
   bucherons = 0;  
->>>>>>> Stashed changes
 endfor
 
 #REPRESENTATION GRAPHIQUE
@@ -89,38 +98,54 @@ hold on;
 plot(Time, Effectifs_mety, 'r');
 plot(Time, Effectifs_nutriment, 'b');
 plot(Time, Effectifs_phyton, 'g');
-legend('Métynnis', 'Nutriments', 'Phyton');
-title('Evolution des effectifs de métynnis, nutriments et phyton en fonction du temps');
+legend('Methynnis', 'Nutriments', 'Phyton');
+title('Evolution des effectifs de methynnis, nutriments et phyton en fonction du temps');
 
 #___________________________________________________________________________________________________________
 
-### SIMULATION DE LA CROISSANCE DU MARSUPILAMI
+# SIMULATION DE LA CROISSANCE DU MARSUPILAMI
 
 #VARIABLES POUR K
-Tmoy = 273+31.995;                           %température moyenne notée en kelvin
+
+Tmoy = 273+31.995;                               %tempÃ©rature moyenne notÃ©e en kelvin
+temperature = Tmoy;
+AmpT = 10.366;                                  %amplitude thermique
+
+Tmoy = 273+31.995;                           %tempÃ©rature moyenne notÃ©e en kelvin
 temperature = Tmoy;
 AmpT = 10.366;                               %amplitude thermique
 Tref = 310;
 Kref = 0.031/30;                             %on divise par 30 pour passer de mois en jours
-Ta = 9500;                                   %température d'Arhenius
+Ta = 9500;                                   %tempÃ©rature d'Arhenius
 
 
 #AUTRES VARIABLES
 Linf = 150;                                  %cm
 L = 7;                                       %longueur initiale                             
 Xk = 0.14;                                   %valeur de demi saturation, en micromoles d'azote par litre
+x = 0;
+Met = 0;
 x = 0;                                       %permet de r?cup?rer les valeurs dans le tableau des m?tynnis
 Met = 0;                                     %variable qui stockera les effectifs de metynnis pour chaque pas de temps
+
 
 #TABLEAUX
 Lt = [L];                                    %vecteur qui stocke les longueurs                             
 temp = [temperature];
 
 #CALCUL
+
+for t = dt:dt:Tmax 
+  
+  x = x+1;                                       
+  [temperature, cT] = Fonction_var_temp(Tmoy, t);  
+  Met = Effectifs_mety(1,x);
+
 for t = dt:dt:Tmax
   x = x+1;                                          %permet juste de parcourir le tableau                                      
   [temperature, cT] = Fonction_var_temp(Tmoy, t); 
   Met = Effectifs_mety(1,x); 
+
   f = Met/(Xk + Met);                                          %reponse fonctionnelle
   K1 = Fonction_var_taille(L);
   K2 = Fonction_var_taille(L + 0.5*dt*K1);
@@ -129,6 +154,7 @@ for t = dt:dt:Tmax
   L = L + dt*(K1/6 + K2/3 + K3/3 + K4/6);
   Lt = [Lt L];
   temp = [temp temperature];
+  
 endfor
 
 #REPRESENTATION
@@ -139,7 +165,7 @@ xlabel('Temps en jours');
 ylabel('Taille en cm');
 grid;
 
-#Variations de température
+#Variations de tempÃ©rature
 figure(3);
 plot(Time, temp);
 title('Variations de la temperature');
