@@ -41,7 +41,7 @@ gamma = 0.7;                                    %proportion d'azote assimile par
 fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
 
 Tmax = 365*9;                                   %temps maximal de la simulation
-global dt = 0.5;                                       %pas de temps
+global dt = 0.5;                                %pas de temps
 Time = [0];                                     %tableau qui stocke le temps
 
 N = 4;                                          %effectifs initiaux nutriments
@@ -58,7 +58,7 @@ for t = dt:dt:Tmax
 
   if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
     bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2);  
-   else floor(t) == TAB_bucherons(length(TAB_bucherons),1) + 1
+   elseif floor(t) == TAB_bucherons(length(TAB_bucherons),1) + 1
     bucherons = 0;
   endif
     
