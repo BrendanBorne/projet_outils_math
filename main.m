@@ -52,20 +52,13 @@ Effectifs_mety = [Z];
 Effectifs_nutriment = [N];
 Effectifs_phyton = [P];
 
-#CALCUL (RUNGE KUTTA)
+# CALCUL DES CONCENTRATIONS DANS L'ETANG(RUNGE KUTTA)
 
 for t = dt:dt:Tmax
-  
-  %CALCULER ICI LE NOMBRE DE BUCHERONS
- 
-  
-      if any((TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1)
-        
-      
-        
-        bucherons = TAB_bucherons(find(TAB_bucherons(:,1)==t*dt), 2);
-        
-      endif
+
+  if any(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1  
+    bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt), 2);   
+  endif
     
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
   [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
@@ -79,7 +72,9 @@ for t = dt:dt:Tmax
   Effectifs_mety = [Effectifs_mety Z];
   Effectifs_nutriment = [Effectifs_nutriment N];
   Effectifs_phyton = [Effectifs_phyton P];
-  Time = [Time t]
+  Time = [Time t];
+  
+  bucherons = 0;
   
 endfor
 
@@ -90,12 +85,12 @@ hold on;
 plot(Time, Effectifs_mety, 'r');
 plot(Time, Effectifs_nutriment, 'b');
 plot(Time, Effectifs_phyton, 'g');
-legend('Métynnis', 'Nutriments', 'Phyton');
-title('Evolution des effectifs de métynnis, nutriments et phyton en fonction du temps');
+legend('Methynnis', 'Nutriments', 'Phyton');
+title('Evolution des effectifs de methynnis, nutriments et phyton en fonction du temps');
 
 #___________________________________________________________________________________________________________
 
-### SIMULATION DE LA CROISSANCE DU MARSUPILAMI
+# SIMULATION DE LA CROISSANCE DU MARSUPILAMI
 
 #VARIABLES POUR K
 Tmoy = 273+31.995;                               %température moyenne notée en kelvin
@@ -119,6 +114,7 @@ temp = [temperature];
 
 #CALCUL
 for t = dt:dt:Tmax 
+  
   x = x+1;                                       
   [temperature, cT] = Fonction_var_temp(Tmoy, t);  
   Met = Effectifs_mety(1,x);
@@ -130,6 +126,7 @@ for t = dt:dt:Tmax
   L = L + dt*(K1/6 + K2/3 + K3/3 + K4/6);
   Lt = [Lt L];
   temp = [temp temperature];
+  
 endfor
 
 #REPRESENTATION
