@@ -59,7 +59,7 @@ for t = dt:dt:Tmax
   %CALCULER ICI LE NOMBRE DE BUCHERONS
  
   
-      if any(TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1
+      if any((TAB_bucherons(:,1) + debut_bucherons == length(Time)*dt) == 1)
         
       
         
@@ -79,7 +79,7 @@ for t = dt:dt:Tmax
   Effectifs_mety = [Effectifs_mety Z];
   Effectifs_nutriment = [Effectifs_nutriment N];
   Effectifs_phyton = [Effectifs_phyton P];
-  Time = [Time t];
+  Time = [Time t]
   
 endfor
 
