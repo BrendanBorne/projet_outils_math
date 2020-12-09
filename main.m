@@ -27,7 +27,7 @@ global Tref
 #Relatives aux bucherons
 TAB_bucherons = load('Bucherons.txt');          %tableau des bucherons
 global bucherons = 0;                           %nombre de bucherons
-debut_bucherons = input("Jour d'arrivee des premiers bucherons ? ");
+debut_bucherons = 2500;
 
 #Autres
 Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
@@ -40,7 +40,7 @@ gamma = 0.7;                                    %proportion d'azote assimile par
 fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
 
 Tmax = 365*9;                                   %temps maximal de la simulation
-dt = 0.5;                                       %pas de temps
+global dt = 1;                                       %pas de temps
 Time = [0];                                     %tableau qui stocke le temps
 
 N = 4;                                          %effectifs initiaux nutriments
@@ -52,14 +52,17 @@ Effectifs_nutriment = [N];
 Effectifs_phyton = [P];
 
 # CALCUL DES CONCENTRATIONS DANS L'ETANG(RUNGE KUTTA)
+tous_bucherons=[bucherons];
 
 for t = dt:dt:Tmax
 
-  #if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
-  #  bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2);  
-  #elseif floor(t) >= TAB_bucherons(length(TAB_bucherons),1) + 1 + debut_bucherons
-  #  bucherons = 0;
-  #endif
+  if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
+    bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2); 
+    tous_bucherons=[tous_bucherons;bucherons]; 
+  elseif floor(t) >= TAB_bucherons(length(TAB_bucherons),1) + 1 + debut_bucherons
+    bucherons = 0;
+    #disp("On a fini de parcourir le tableau");
+  endif
     
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
   [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
