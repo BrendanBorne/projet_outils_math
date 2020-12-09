@@ -55,11 +55,11 @@ Effectifs_phyton = [P];
 
 for t = dt:dt:Tmax
 
-  if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
-    bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2);  
-   elseif floor(t) == TAB_bucherons(length(TAB_bucherons),1) + 1
-    bucherons = 0;
-  endif
+  #if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
+  #  bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2);  
+  #elseif floor(t) >= TAB_bucherons(length(TAB_bucherons),1) + 1 + debut_bucherons
+  #  bucherons = 0;
+  #endif
     
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
   [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
@@ -135,3 +135,9 @@ title('Croissance du Marsupilami');
 xlabel('Temps en jours');
 ylabel('Taille en cm');
 
+figure(3);
+plot(Time, temp);
+title('Variations de la temperature');
+xlabel('Temps en jours');
+ylabel('Temperature en Kelvin');
+grid;
