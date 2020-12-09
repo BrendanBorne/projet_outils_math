@@ -56,13 +56,13 @@ tous_bucherons=[bucherons];
 
 for t = dt:dt:Tmax
 
-  if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
-    bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2); 
-    tous_bucherons=[tous_bucherons;bucherons]; 
-  elseif floor(t) >= TAB_bucherons(length(TAB_bucherons),1) + 1 + debut_bucherons
-    bucherons = 0;
-    #disp("On a fini de parcourir le tableau");
-  endif
+  #if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
+  #  bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2); 
+  #  tous_bucherons=[tous_bucherons;bucherons]; 
+  #elseif floor(t) >= TAB_bucherons(length(TAB_bucherons),1) + 1 + debut_bucherons
+  #  bucherons = 0;
+  #  disp("On a fini de parcourir le tableau");
+  #endif
     
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
   [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
