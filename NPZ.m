@@ -8,13 +8,11 @@ global e
 global gamma
 global fIo
 
-global bucherons
 
-
-Flux_nutriment = -((Vm*N)/(ks + N))*fIo*P + (1-gamma)*Z*Rm*(1-exp(-lambda*P)) + e*P + g*Z + bucherons*(0.00052);
+Flux_nutriment = -((Vm*N)/(ks + N))*fIo*P + (1-gamma)*Z*Rm*(1-exp(-lambda*P)) + e*P + g*Z;
 
 Flux_phyton = ((Vm*N)/(ks + N))*fIo*P - Z*Rm*(1-exp(-lambda*P)) - e*P;
 
-Flux_mety = gamma*Z*Rm*(1-exp(-lambda*P)) - g*Z - bucherons*(0.0041/7);
+Flux_mety = gamma*Z*Rm*(1-exp(-lambda*P)) - g*Z;
 
 endfunction
