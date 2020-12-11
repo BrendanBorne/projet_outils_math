@@ -1,7 +1,7 @@
 close all;
 clear all;
 
-### SIMULATION DE L'ETANG
+          ### SIMULATION DE L'ETANG
 
 #VARIABLES
 
@@ -24,9 +24,9 @@ global AmpT
 global Ta
 global Tref
 
-#Relatives aux bucherons
+#Bucherons
 TAB_bucherons = load('Bucherons.txt');          %tableau des bucherons
-global bucherons = 0;                           %nombre de bucherons
+bucherons = 0;                                  %nombre de bucherons
 debut_bucherons = input("Jour d'arrivee des premiers bucherons ? ");
 
 #Autres
@@ -39,14 +39,16 @@ e = 0.1;                                        %en jour^-1, taux de mortalité d
 gamma = 0.7;                                    %proportion d'azote assimile par les metynnis
 fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
 
+#Temps
 Tmax = 365*9;                                   %temps maximal de la simulation
 dt = 0.5;                                       %pas de temps
-Time = [0];                                     %tableau qui stocke le temps
+Time = [0];                                     %Stockage temps
 
-N = 4;                                          %effectifs initiaux nutriments
-P = 2.5;                                        %effectifs initiaux phyton
-Z = 0.5;                                        %effectifs initiaux metynnis
+N = 4;                                          %effectifs nutriments
+P = 2.5;                                        %effectifs phyton
+Z = 0.5;                                        %effectifs methynnis
 
+#Tableaux concentrations
 Effectifs_mety = [Z];
 Effectifs_nutriment = [N];
 Effectifs_phyton = [P];
@@ -66,14 +68,21 @@ for t = dt:dt:Tmax
   [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
   [NK4, PK4, ZK4] = NPZ(N + NK3*dt, P + PK3*dt, Z + ZK3*dt);
   
-  N = N + dt*(NK1/6 + NK2/3 + NK3/3 + NK4/6);
+  N = N + dt*(NK1/6 + NK2/3 + NK3/3 + NK4/6) + bucherons*(0.00052)*dt;
+    if N <= 0
+      N = 0;
+    endif
   P = P + dt*(PK1/6 + PK2/3 + PK3/3 + PK4/6);
-  Z = Z + dt*(ZK1/6 + ZK2/3 + ZK3/3 + ZK4/6);
+  Z = Z + dt*(ZK1/6 + ZK2/3 + ZK3/3 + ZK4/6) - bucherons*(0.0041/7)*dt;
+    if Z <= 0
+      Z = 0;
+    endif
  
   Effectifs_mety = [Effectifs_mety Z];
   Effectifs_nutriment = [Effectifs_nutriment N];
   Effectifs_phyton = [Effectifs_phyton P];
   Time = [Time t];
+  
 endfor
 
 #REPRESENTATION
@@ -87,7 +96,7 @@ title('Evolution des effectifs de methynnis, nutriments et phyton en fonction du
 
 #___________________________________________________________________________________________________________
 
-# SIMULATION DE LA CROISSANCE DU MARSUPILAMI
+          ### SIMULATION DE LA CROISSANCE DU MARSUPILAMI
 
 #VARIABLES POUR K
 Tmoy = 273+31.995;                       %température moyenne notée en kelvin
@@ -103,7 +112,7 @@ Linf = 150;                              %cm
 L = 7;                                   %longueur initiale                             
 Xk = 0.14;                               %valeur de demi saturation, en micromoles d'azote par litre
 x = 0;
-Met = 0;
+Met = 0;                                 %densit‚ en methynnis
 
 #TABLEAUX
 Lt = [L];                                %vecteur qui stocke les longueurs                             
