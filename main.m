@@ -53,7 +53,7 @@ Effectifs_mety = [Z];
 Effectifs_nutriment = [N];
 Effectifs_phyton = [P];
 
-# CALCUL DES CONCENTRATIONS DANS L'ETANG(RUNGE KUTTA)
+# CALCUL DES CONCENTRATIONS DANS L'ETANG
 
 for t = dt:dt:Tmax
 
@@ -118,13 +118,13 @@ Met = 0;                                 %densit‚ en methynnis
 Lt = [L];                                %vecteur qui stocke les longueurs                             
 temp = [temperature];
 
-#CALCUL
+#CALCUL : TEMPERATURE ET TAILLE
 for t = dt:dt:Tmax 
   
   x = x+1;                                       
   [temperature, cT] = Fonction_var_temp(Tmoy, t);  
   Met = Effectifs_mety(1,x);
-  f = Met/(Xk + Met);    %reponse fonctionnelle
+  f = Met/(Xk + Met);                    %reponse fonctionnelle
   
   K1 = Fonction_var_taille(L);
   K2 = Fonction_var_taille(L + 0.5*dt*K1);
