@@ -39,7 +39,7 @@ e = 0.1;                                        %en jour^-1, taux de mortalité d
 gamma = 0.7;                                    %proportion d'azote assimile par les metynnis
 fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
 
-Tmax = 365*9;                                   %temps maximal de la simulation
+Tmax = 365*5;                                   %temps maximal de la simulation
 dt = 0.5;                                       %pas de temps
 Time = [0];                                     %tableau qui stocke le temps
 
