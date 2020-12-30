@@ -1,7 +1,7 @@
 close all;
 clear all;
 
-          ### SIMULATION DE L'ETANG
+### SIMULATION DE L'ETANG
 
 #VARIABLES
 
@@ -59,7 +59,7 @@ for t = dt:dt:Tmax
 
   if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
     bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2);  
-   elseif floor(t) == TAB_bucherons(length(TAB_bucherons),1) + 1
+   elseif floor(t) >= TAB_bucherons(length(TAB_bucherons),1) + 1 + debut_bucherons
     bucherons = 0;
   endif
     
