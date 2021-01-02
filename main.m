@@ -56,13 +56,13 @@ Effectifs_phyton = [P];
 # CALCUL DES CONCENTRATIONS DANS L'ETANG
 
 for t = dt:dt:Tmax
-
+  
   if any(TAB_bucherons(:,1) + debut_bucherons == floor(t)) == 1  
     bucherons = TAB_bucherons(find(TAB_bucherons(:,1) + debut_bucherons == floor(t)), 2);  
    elseif floor(t) >= TAB_bucherons(length(TAB_bucherons),1) + 1 + debut_bucherons
     bucherons = 0;
   endif
-    
+  
   [NK1, PK1, ZK1] = NPZ(N, P, Z);
   [NK2, PK2, ZK2] = NPZ(N + 0.5*NK1*dt, P + 0.5*PK1*dt, Z + 0.5*ZK1*dt);
   [NK3, PK3, ZK3] = NPZ(N + 0.5*NK2*dt, P + 0.5*PK2*dt, Z + 0.5*ZK2*dt);
@@ -91,8 +91,10 @@ hold on;
 plot(Time, Effectifs_mety, 'r');
 plot(Time, Effectifs_nutriment, 'b');
 plot(Time, Effectifs_phyton, 'g');
-legend('Methynnis', 'Nutriments', 'Phyton');
-title('Evolution des effectifs de methynnis, nutriments et phyton en fonction du temps');
+legend('Metynnis', 'Nutriments', 'Phyton');
+title('Evolution des effectifs de metynnis, nutriments et phyton en fonction du temps');
+xlabel("Temps en jours");
+ylabel("micromoles d'azote");
 
 #___________________________________________________________________________________________________________
 
