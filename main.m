@@ -6,47 +6,38 @@ clear all;
 #VARIABLES
 
 #Globales fonction NPZ
-global Vm
-global ks
-global Rm
-global g
-global lambda
-global e
-global gamma
-global fIo
+global Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
+global ks = 1;                                         %en micromole, cstte de demi-saturation de l'azote par le phyton
+global Rm = 1;                                         %en jour^-1, taux max de broutage du phyton par les métynnis
+global g = 0.2;                                        %en jour^-1, taux de mortalité des metynnis
+global lambda = 0.2;                                   %en micromol d'azote par L, cstte d'Ivlev pour le broutage
+global e = 0.1;                                        %en jour^-1, taux de mortalité du phyton
+global gamma = 0.7;                                    %proportion d'azote assimile par les metynnis
+global fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
 
 #Globales fonction croissance
 global cT
-global Kref
-global Linf
-global f
-global AmpT
-global Ta
-global Tref
+global Kref = 0.031/30;                                %on divise par 30 pour passer de mois en jours
+global Linf = 150;                                     %cm
+global f                                               %reponse fonctionnelle
+global AmpT = 10.366;                                  %amplitude thermique
+global Ta = 9000;                                      %température d'Arrhenius
+global Tref = 310;
 
 #Bucherons
-TAB_bucherons = load('Bucherons.txt');          %tableau des bucherons
-bucherons = 0;                                  %nombre de bucherons
+TAB_bucherons = load('Bucherons.txt');                 %tableau des bucherons
+bucherons = 0;                                         %nombre de bucherons
 debut_bucherons = input("Jour d'arrivee des premiers bucherons ? ");
 
-#Autres
-Vm = 1;                                         %en jour^-1, taux max d'assimilation d'azote par le phyton
-ks = 1;                                         %en micromole, cstte de demi-saturation de l'azote par le phyton
-Rm = 1;                                         %en jour^-1, taux max de broutage du phyton par les métynnis
-g = 0.2;                                        %en jour^-1, taux de mortalité des metynnis
-lambda = 0.2;                                   %en micromol d'azote par L, cstte d'Ivlev pour le broutage
-e = 0.1;                                        %en jour^-1, taux de mortalité du phyton
-gamma = 0.7;                                    %proportion d'azote assimile par les metynnis
-fIo = 0.25;                                     %fonction de l'intensite de la lumiere 
-
 #Temps
-Tmax = 365*9;                                   %temps maximal de la simulation
-dt = 0.5;                                       %pas de temps
-Time = [0];                                     %Stockage temps
+Tmax = 365*9;                                          %temps maximal de la simulation
+dt = 0.5;                                              %pas de temps
+Time = [0];                                            %Stockage temps
 
-N = 4;                                          %effectifs nutriments
-P = 2.5;                                        %effectifs phyton
-Z = 0.5;                                        %effectifs methynnis
+#Concentrations initiales
+N = 4;                                                 %effectifs nutriments
+P = 2.5;                                               %effectifs phyton
+Z = 0.5;                                               %effectifs methynnis
 
 #Tableaux concentrations
 Effectifs_mety = [Z];
@@ -101,23 +92,17 @@ ylabel("micromoles d'azote");
           ### SIMULATION DE LA CROISSANCE DU MARSUPILAMI
 
 #VARIABLES POUR K
-Tmoy = 273+31.995;                       %température moyenne notée en kelvin
+Tmoy = 273+31.995;                            %température moyenne notée en kelvin
 temperature = Tmoy;
-AmpT = 10.366;                           %amplitude thermique
-Tref = 310;
-Kref = 0.031/30;                         %on divise par 30 pour passer de mois en jours
-Ta = 9000;                               %température d'Arhenius
-
 
 #AUTRES VARIABLES
-Linf = 150;                              %cm
-L = 7;                                   %longueur initiale                             
-Xk = 0.14;                               %valeur de demi saturation, en micromoles d'azote par litre
+L = 7;                                        %longueur initiale                             
+Xk = 0.14;                                    %valeur de demi saturation, en micromoles d'azote par litre
 x = 0;
-Met = 0;                                 %densit‚ en methynnis
+Met = 0;                                      %densite en metynnis
 
 #TABLEAUX
-Lt = [L];                                %vecteur qui stocke les longueurs                             
+Lt = [L];                                     %vecteur qui stocke les longueurs                             
 temp = [temperature];
 
 #CALCUL : TEMPERATURE ET TAILLE
@@ -126,7 +111,7 @@ for t = dt:dt:Tmax
   x = x+1;                                       
   [temperature, cT] = Fonction_var_temp(Tmoy, t);  
   Met = Effectifs_mety(1,x);
-  f = Met/(Xk + Met);                    %reponse fonctionnelle
+  f = Met/(Xk + Met);                         %reponse fonctionnelle
   
   K1 = Fonction_var_taille(L);
   K2 = Fonction_var_taille(L + 0.5*dt*K1);
