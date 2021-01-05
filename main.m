@@ -106,7 +106,7 @@ temperature = Tmoy;
 AmpT = 10.366;                           %amplitude thermique
 Tref = 310;
 Kref = 0.031/30;                         %on divise par 30 pour passer de mois en jours
-Ta = 9500;                               %température d'Arhenius
+Ta = 9000;                               %température d'Arhenius
 
 
 #AUTRES VARIABLES
